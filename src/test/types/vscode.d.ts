@@ -7369,6 +7369,16 @@ declare module 'vscode' {
 		 * background with `retainContextWhenHidden`).
 		 *
 		 * @param message Body of the message. This must be a string or other json serializable object.
+		 *
+		 *   For older versions of vscode, if an `ArrayBuffer` is included in `message`,
+		 *   it will not be serialized properly and will not be received by the webview.
+		 *   Similarly any TypedArrays, such as a `Uint8Array`, will be very inefficiently
+		 *   serialized and will also not be recreated as a typed array inside the webview.
+		 *
+		 *   However if your extension targets vscode 1.57+ in the `engines` field of its
+		 *   `package.json`, any `ArrayBuffer` values that appear in `message` will be more
+		 *   efficiently transferred to the webview and will also be correctly recreated inside
+		 *   of the webview.
 		 */
 		postMessage(message: any): Thenable<boolean>;
 
@@ -10697,6 +10707,16 @@ declare module 'vscode' {
 		 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 		 */
 		export function registerFileSystemProvider(scheme: string, provider: FileSystemProvider, options?: { readonly isCaseSensitive?: boolean, readonly isReadonly?: boolean }): Disposable;
+
+		/**
+		 * When true, the user has explicitly trusted the contents of the workspace.
+		 */
+		export const isTrusted: boolean;
+
+		/**
+		 * Event that fires when the current workspace has been trusted.
+		 */
+		export const onDidGrantWorkspaceTrust: Event<void>;
 	}
 
 	/**

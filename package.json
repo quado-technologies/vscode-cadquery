@@ -1,7 +1,7 @@
 {
   "name": "vscode-cadquery",
-  "displayName": "CadQuery Notebooks",
-  "description": "Notebook for working with CadQuery objects in vscode",
+  "displayName": "vscode-cadquery",
+  "description": "Render cadquery python objects ",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.55.0"
@@ -19,7 +19,7 @@
       {
         "id": "vscode-cadquery",
         "entrypoint": "./out/client/index.js",
-        "displayName": "CadQuery Notebooks",
+        "displayName": "vscode-cadquery",
         "mimeTypes": [
           "application/json"
         ]
